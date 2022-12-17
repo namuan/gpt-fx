@@ -31,7 +31,14 @@ make install
 
 ### Icons
 
-To generate icons from svg
+Requires Inkscape and ImageMagick.
+
+```shell
+brew install imagemagick
+brew install cask inkscape
+```
+
+Run the following command to generate icons for all platforms.
 
 ```shell
 make icons
