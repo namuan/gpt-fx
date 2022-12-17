@@ -14,7 +14,7 @@ class GptScreen(private val title: String) {
         }
         stage.title = title
         stage.scene = scene
-        val image = Image("file-notes.png")
+        val image = Image("app.png")
         stage.icons.add(image)
 
         loadPosition(stage)

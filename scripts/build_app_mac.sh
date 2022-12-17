@@ -11,7 +11,7 @@
 
 MAIN_JAR="gpt-fx-$PROJECT_VERSION.jar"
 APPLICATION_NAME=GptFx
-PACKAGE_IDENTIFIER=com.github.namuan.onepagefx
+PACKAGE_IDENTIFIER=com.github.namuan.gptfx
 MAIN_CLASS=${PACKAGE_IDENTIFIER}.MainApplicationKt
 VENDOR="DeskRiders"
 COPYRIGHT_MESSAGE="Copyright © 2022-23 DeskRiders"
@@ -42,7 +42,7 @@ $JAVA_HOME/bin/jpackage \
   --main-jar ${MAIN_JAR} \
   --java-options -Xmx2048m \
   --runtime-image target/app \
-  --icon src/main/resources/app.icns \
+  --icon src/main/resources/icons/app.icns \
   --app-version 1.0.0 \
   --vendor ${VENDOR} \
   --copyright "${COPYRIGHT_MESSAGE}" \

@@ -14,3 +14,6 @@ run: ## Build and Run application
 
 install: ## Package and install application
 	./mvnw package javafx:jlink install
+
+icons: ## Generate icons
+	./scripts/mk-icns.sh src/main/resources/icons/icon.svg app

@@ -1,14 +1,4 @@
-# OnePageFx
-
-🚀 Only allows you to create a single note
-
-🚀 No possibility of creating multiple notes so your notes are always in front
-
-🚀 Single App across platforms
-
-🚀 Remove any formatting style
-
-🚀 Auto-save notes
+# GptFx
 
 #### Development
 
@@ -37,4 +27,12 @@ make
 
 ```shell
 make install
+```
+
+### Icons
+
+To generate icons from svg
+
+```shell
+make icons
 ```
