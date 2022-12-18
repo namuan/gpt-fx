@@ -10,7 +10,7 @@
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
-    <TextArea fx:id="txtChat" editable="false" prefHeight="375.0" prefWidth="615.0" VBox.vgrow="ALWAYS">
+    <TextArea fx:id="txtChat" wrapText="true" editable="false" prefHeight="375.0" prefWidth="615.0" VBox.vgrow="ALWAYS">
         <VBox.margin>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </VBox.margin>
