@@ -46,11 +46,11 @@ class GptController {
         val dateString = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
 
         val output: String = """
-    [${dateString}] ${HUMAN}: ${prompt}
-                
-    ${ROBOT}: ${result}
-                
-            """.trimIndent()
+
+[${dateString}] ${HUMAN}: ${prompt}
+
+${ROBOT}: ${result}
+---""".trimIndent()
         return output
     }
 }
