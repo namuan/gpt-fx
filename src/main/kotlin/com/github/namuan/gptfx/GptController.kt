@@ -9,12 +9,8 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 import java.util.concurrent.CompletableFuture
 
-private const val HUMAN = "🗣"
-private const val ROBOT = "🤖"
 
 class GptController {
     @FXML
@@ -65,32 +61,13 @@ class GptController {
 
     fun onSendPrompt() {
         chatViewModel.disableNewRequests()
-
-        val chatContext = getChatLogsWith(chatViewModel.prompt.value).joinToString("\n")
+        val chatContext: String = chatViewModel.getChatContext()
 
         CompletableFuture.supplyAsync {
             val apiResponse = completionsApi(chatContext)
-            val output: String = buildOutputFrom(chatViewModel.prompt.value, apiResponse)
-            txtChat.appendText(output)
-            file.appendText(output)
-
-            storeInChatLogs(chatViewModel.prompt.value, apiResponse)
+            chatViewModel.updateChatContext(apiResponse)
             chatViewModel.resetPrompt()
         }
-    }
-
-    private fun buildOutputFrom(
-        prompt: String,
-        result: String
-    ): String {
-        val dateString = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
-
-        return """
-
-[${dateString}] ${HUMAN}: $prompt
-
-${ROBOT}: $result
----""".trimIndent()
     }
 
     private fun Node.assignShortcuts(keyCode: KeyCode, trigger: Runnable) {
