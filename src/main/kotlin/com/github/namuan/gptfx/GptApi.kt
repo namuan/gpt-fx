@@ -25,9 +25,12 @@ data class CompletionResponse(val choices: List<Choice>)
 
 val gson: Gson = Gson()
 
-val openAiApiKey = System.getenv("OPENAI_API_KEY")
+val openAiApiKey: String? = System.getenv("OPENAI_API_KEY")
+
 
 fun completionsApi(prompt: String): String {
+    assert(openAiApiKey != null) { "OPENAI_API_KEY is not set" }
+
     val openaiRequest = CompletionRequest(
         model = "text-davinci-003",
         prompt = prompt,
