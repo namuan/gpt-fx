@@ -9,8 +9,8 @@ import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
-private const val HUMAN = "\uD83D\uDC64"
-private const val ROBOT = "\uD83E\uDD16"
+private const val HUMAN = "🗣"
+private const val ROBOT = "🤖"
 
 class GptController {
     @FXML
