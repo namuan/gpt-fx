@@ -27,6 +27,10 @@ class ChatViewModel {
         disablePrompting.set(true)
     }
 
+    fun enableNewRequests() {
+        disablePrompting.set(false)
+    }
+
     fun getChatContext(): String {
         return safeChatHistory() + safePrompt()
     }

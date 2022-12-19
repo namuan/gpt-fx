@@ -52,10 +52,16 @@ class GptController {
         val chatContext: String = chatViewModel.getChatContext()
 
         CompletableFuture.supplyAsync {
-            chatViewModel.disableNewRequests()
-            val apiResponse = completionsApi(chatContext)
-            chatViewModel.updateChatContext(apiResponse)
-            chatViewModel.resetPrompt()
+            try {
+                chatViewModel.disableNewRequests()
+                val apiResponse = completionsApi(chatContext)
+                chatViewModel.updateChatContext(apiResponse)
+                chatViewModel.resetPrompt()
+            } catch (e: Exception) {
+                println("e = ${e}")
+            } finally {
+                chatViewModel.enableNewRequests()
+            }
         }
     }
 
