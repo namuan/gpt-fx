@@ -1,6 +1,5 @@
 package com.github.namuan.gptfx
 
-import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
@@ -28,7 +27,7 @@ class GptController {
         file.parentFile.mkdirs()
     }
 
-    fun onSendPrompt(event: ActionEvent) {
+    fun onSendPrompt() {
         btnSend.isDisable = true
         val chatContext = getListWith(txtPrompt.text).joinToString("\n")
         val apiResponse = completionsApi(chatContext)
@@ -47,12 +46,11 @@ class GptController {
     ): String {
         val dateString = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date())
 
-        val output: String = """
+        return """
 
-[${dateString}] ${HUMAN}: ${prompt}
+[${dateString}] ${HUMAN}: $prompt
 
-${ROBOT}: ${result}
+${ROBOT}: $result
 ---""".trimIndent()
-        return output
     }
 }

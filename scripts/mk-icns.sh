@@ -20,6 +20,7 @@ $inkscape --export-filename "$PWD/$output_name.iconset/icon_512x512.png"    -w  
 $inkscape --export-filename "$PWD/$output_name.iconset/icon_512x512@2x.png" -w 1024 -h 1024 "$svg_file"
 iconutil -c icns "$output_name.iconset"
 
+# shellcheck disable=SC2046
 convert $(ls "${output_name}".iconset/icon_*.png) src/main/resources/icons/app.ico
 
 rm -R "$output_name.iconset"

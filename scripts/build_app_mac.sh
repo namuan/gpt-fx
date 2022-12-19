@@ -17,7 +17,7 @@ VENDOR="DeskRiders"
 COPYRIGHT_MESSAGE="Copyright © 2022-23 DeskRiders"
 
 # Set desired installer type: "app-image", "dmg", "pkg".
-INSTALLER_TYPE=dmg
+INSTALLER_TYPE=app-image
 
 echo "java home: $JAVA_HOME"
 echo "project version: $PROJECT_VERSION"
@@ -28,18 +28,18 @@ echo "main JAR file: $MAIN_JAR"
 mkdir -vp target/installer/input/libs/
 
 cp -R target/app/lib/* target/installer/input/libs/
-cp target/${MAIN_JAR} target/installer/input/libs/
+cp target/"${MAIN_JAR}" target/installer/input/libs/
 
 # ------ PACKAGING ----------------------------------------------------------
 echo "Creating installer of type $INSTALLER_TYPE"
 
-$JAVA_HOME/bin/jpackage \
+"$JAVA_HOME"/bin/jpackage \
   --type ${INSTALLER_TYPE} \
   --dest target/installer \
   --input target/installer/input/libs \
   --name ${APPLICATION_NAME} \
   --main-class ${MAIN_CLASS} \
-  --main-jar ${MAIN_JAR} \
+  --main-jar "${MAIN_JAR}" \
   --java-options -Xmx2048m \
   --runtime-image target/app \
   --icon src/main/resources/icons/app.icns \
