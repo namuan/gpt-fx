@@ -36,6 +36,10 @@ class ChatViewModel {
         chatHistory.set(safeChatHistory() + buildOutputFrom(safePrompt(), promptResponse))
     }
 
+    fun clearChatHistory() {
+        chatHistory.set("")
+    }
+
     private fun buildOutputFrom(
         prompt: String,
         result: String

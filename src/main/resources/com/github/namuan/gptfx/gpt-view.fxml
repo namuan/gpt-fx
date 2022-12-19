@@ -6,7 +6,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.*?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="539.0" prefWidth="625.0" spacing="5.0"
-      xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.github.namuan.gptfx.GptController">
+      xmlns="http://javafx.com/javafx/19" fx:controller="com.github.namuan.gptfx.GptController">
     <padding>
         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
     </padding>
@@ -14,7 +14,7 @@
         <TextArea fx:id="txtChat" editable="false" prefHeight="375.0" prefWidth="615.0" wrapText="true"/>
         <Button fx:id="btnClearChat" mnemonicParsing="false" onAction="#onBtnClearChatPressed" text="Clear">
             <StackPane.margin>
-                <Insets right="10.0" top="10.0"/>
+                <Insets right="20.0" top="10.0"/>
             </StackPane.margin>
         </Button>
     </StackPane>
@@ -27,7 +27,7 @@
         <Button fx:id="btnSend" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#onSendPrompt"
                 text="Send" textAlignment="CENTER">
             <HBox.margin>
-                <Insets left="10.0" right="5.0"/>
+                <Insets left="10.0" right="10.0"/>
             </HBox.margin>
         </Button>
     </HBox>

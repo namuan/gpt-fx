@@ -43,9 +43,6 @@ class GptController {
         txtPrompt.assignShortcuts(KeyCode.I) {
             txtPrompt.requestFocus()
         }
-        txtChat.assignShortcuts(KeyCode.C) {
-            txtChat.copy()
-        }
     }
 
     fun bindViewModel() {
@@ -55,8 +52,7 @@ class GptController {
     }
 
     fun onBtnClearChatPressed() {
-        clearChatLogs()
-        txtChat.clear()
+        chatViewModel.clearChatHistory()
     }
 
     fun onSendPrompt() {
