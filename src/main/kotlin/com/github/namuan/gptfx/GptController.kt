@@ -65,7 +65,6 @@ class GptController {
         val chatContext = getChatLogsWith(txtPrompt.text).joinToString("\n")
 
         CompletableFuture.supplyAsync({
-            Thread.sleep(5000)
             val apiResponse = completionsApi(chatContext)
             val output: String = buildOutputFrom(txtPrompt.text, apiResponse)
             txtChat.appendText(output)
