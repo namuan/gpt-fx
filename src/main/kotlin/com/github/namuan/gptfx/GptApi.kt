@@ -2,6 +2,7 @@ package com.github.namuan.gptfx
 
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
+import javafx.concurrent.Task
 import java.net.URI
 import java.net.http.HttpClient.newHttpClient
 import java.net.http.HttpRequest
@@ -48,4 +49,10 @@ fun completionsApi(prompt: String): String {
     val completionResponse = gson.fromJson(response.body(), CompletionResponse::class.java)
 
     return completionResponse.choices.firstOrNull()?.text?.trim() ?: ""
+}
+
+class ApiTask(val chatContext: String) : Task<String>() {
+    override fun call(): String {
+        return completionsApi(chatContext)
+    }
 }

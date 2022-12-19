@@ -8,7 +8,7 @@ import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
-import java.util.concurrent.CompletableFuture
+import java.util.concurrent.Executors
 
 
 class GptController {
@@ -51,18 +51,18 @@ class GptController {
     fun onSendPrompt() {
         val chatContext: String = chatViewModel.getChatContext()
 
-        CompletableFuture.supplyAsync {
-            try {
-                chatViewModel.disableNewRequests()
-                val apiResponse = completionsApi(chatContext)
-                chatViewModel.updateChatContext(apiResponse)
-                chatViewModel.resetPrompt()
-            } catch (e: Exception) {
-                println("e = ${e}")
-            } finally {
-                chatViewModel.enableNewRequests()
-            }
+        val task = ApiTask(chatContext)
+        task.setOnSucceeded {
+            chatViewModel.updateChatContext(task.value)
+            chatViewModel.enableNewRequests()
         }
+        task.setOnFailed {
+            task.exception.printStackTrace()
+            chatViewModel.enableNewRequests()
+        }
+
+        chatViewModel.disableNewRequests()
+        Executors.newSingleThreadExecutor().submit(task)
     }
 
     private fun Node.assignShortcuts(keyCode: KeyCode, trigger: Runnable) {
