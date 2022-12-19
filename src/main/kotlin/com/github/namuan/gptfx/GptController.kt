@@ -12,12 +12,19 @@ private const val HUMAN = "🗣"
 private const val ROBOT = "🤖"
 
 class GptController {
+    // TODO: Ctrl+X to clear chat
+    @FXML
+    private lateinit var btnClearChat: Button
+
+    // TODO: Ctrl+S to send
     @FXML
     private lateinit var btnSend: Button
 
+    // TODO: Ctrl+I to focus on this field
     @FXML
     private lateinit var txtPrompt: TextField
 
+    // TODO: Ctrl+C to copy the text
     @FXML
     private lateinit var txtChat: TextArea
 
@@ -27,15 +34,20 @@ class GptController {
         file.parentFile.mkdirs()
     }
 
+    fun onBtnClearChatPressed() {
+        clearChatLogs()
+        txtChat.clear()
+    }
+
     fun onSendPrompt() {
         btnSend.isDisable = true
-        val chatContext = getListWith(txtPrompt.text).joinToString("\n")
+        val chatContext = getChatLogsWith(txtPrompt.text).joinToString("\n")
         val apiResponse = completionsApi(chatContext)
         val output: String = buildOutputFrom(txtPrompt.text, apiResponse)
         txtChat.appendText(output)
         file.appendText(output)
 
-        saveToList(txtPrompt.text, apiResponse)
+        storeInChatLogs(txtPrompt.text, apiResponse)
         btnSend.isDisable = false
         txtPrompt.clear()
     }

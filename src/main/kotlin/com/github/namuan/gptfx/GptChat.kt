@@ -3,10 +3,14 @@ package com.github.namuan.gptfx
 
 private var chatLog = mutableListOf<String>()
 
-fun saveToList(vararg messages: String) {
+fun storeInChatLogs(vararg messages: String) {
     chatLog.addAll(messages)
 }
 
-fun getListWith(prompt: String): List<String> {
+fun getChatLogsWith(prompt: String): List<String> {
     return chatLog + prompt
+}
+
+fun clearChatLogs() {
+    chatLog.clear()
 }
