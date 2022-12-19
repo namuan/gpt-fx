@@ -5,6 +5,7 @@ import javafx.stage.Stage
 
 class MainApp : Application() {
     override fun start(stage: Stage) {
+        setupConfig()
         GptView("GPT").setup(stage)
         stage.show()
     }

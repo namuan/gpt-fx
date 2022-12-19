@@ -4,6 +4,7 @@ import javafx.beans.property.BooleanProperty
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleStringProperty
 import javafx.beans.property.StringProperty
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -14,6 +15,8 @@ class ChatViewModel {
     val prompt: StringProperty = SimpleStringProperty()
     val chatHistory: StringProperty = SimpleStringProperty()
     val disablePrompting: BooleanProperty = SimpleBooleanProperty()
+
+    private val file: File = File(applicationDirectory, "chat.txt")
 
     fun resetPrompt() {
         prompt.set("")
@@ -29,7 +32,9 @@ class ChatViewModel {
     }
 
     fun updateChatContext(promptResponse: String) {
-        chatHistory.set(safeChatHistory() + buildOutputFrom(safePrompt(), promptResponse))
+        val output = buildOutputFrom(safePrompt(), promptResponse)
+        chatHistory.set(safeChatHistory() + output)
+        file.appendText(output)
     }
 
     fun clearChatHistory() {

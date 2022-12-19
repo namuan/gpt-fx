@@ -8,7 +8,6 @@ import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyCodeCombination
 import javafx.scene.input.KeyCombination
-import java.io.File
 import java.util.concurrent.CompletableFuture
 
 
@@ -25,13 +24,7 @@ class GptController {
     @FXML
     private lateinit var txtChat: TextArea
 
-    private val file: File = File(applicationDirectory, "chat.txt")
-
     private val chatViewModel = ChatViewModel()
-
-    fun initialize() {
-        file.parentFile.mkdirs()
-    }
 
     fun bindShortcuts() {
         btnSend.assignShortcuts(KeyCode.S) {

@@ -12,6 +12,10 @@ data class WindowPosition(val x: Double, val y: Double, val width: Double, val h
 
 data class ApplicationProperties(val windowPosition: WindowPosition)
 
+fun setupConfig() {
+    File(applicationDirectory).mkdirs()
+}
+
 fun savePosition(stage: Stage) {
     val windowPosition = WindowPosition(stage.x, stage.y, stage.width, stage.height)
     val applicationProperties = ApplicationProperties(windowPosition = windowPosition)
