@@ -4,6 +4,9 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyCodeCombination
+import javafx.scene.input.KeyCombination
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,19 +15,15 @@ private const val HUMAN = "🗣"
 private const val ROBOT = "🤖"
 
 class GptController {
-    // TODO: Ctrl+X to clear chat
     @FXML
     private lateinit var btnClearChat: Button
 
-    // TODO: Ctrl+S to send
     @FXML
     private lateinit var btnSend: Button
 
-    // TODO: Ctrl+I to focus on this field
     @FXML
     private lateinit var txtPrompt: TextField
 
-    // TODO: Ctrl+C to copy the text
     @FXML
     private lateinit var txtChat: TextArea
 
@@ -32,6 +31,21 @@ class GptController {
 
     fun initialize() {
         file.parentFile.mkdirs()
+    }
+
+    fun bindShortcuts() {
+        btnSend.scene.accelerators.put(KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_ANY)) {
+            btnSend.fire()
+        }
+        btnClearChat.scene.accelerators.put(KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_ANY)) {
+            btnClearChat.fire()
+        }
+        txtPrompt.scene.accelerators.put(KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_ANY)) {
+            txtPrompt.requestFocus()
+        }
+        txtChat.scene.accelerators.put(KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_ANY)) {
+            txtChat.copy()
+        }
     }
 
     fun onBtnClearChatPressed() {

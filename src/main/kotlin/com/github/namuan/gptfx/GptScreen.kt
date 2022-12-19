@@ -22,5 +22,8 @@ class GptScreen(private val title: String) {
         stage.setOnCloseRequest { _ ->
             savePosition(stage)
         }
+
+        val gptController = fxmlLoader.getController<GptController>()
+        gptController.bindShortcuts()
     }
 }
