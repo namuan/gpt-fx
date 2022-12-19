@@ -25,5 +25,6 @@ class GptView(private val title: String) {
 
         val gptController = fxmlLoader.getController<GptController>()
         gptController.bindShortcuts()
+        gptController.bindViewModel()
     }
 }

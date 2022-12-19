@@ -1,6 +1,5 @@
 package com.github.namuan.gptfx
 
-import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Button
@@ -32,6 +31,8 @@ class GptController {
 
     private val file: File = File(applicationDirectory, "chat.txt")
 
+    private val chatViewModel = ChatViewModel()
+
     fun initialize() {
         file.parentFile.mkdirs()
     }
@@ -51,8 +52,10 @@ class GptController {
         }
     }
 
-    private fun Node.assignShortcuts(keyCode: KeyCode, trigger: () -> Unit) {
-        scene.accelerators.put(KeyCodeCombination(keyCode, KeyCombination.CONTROL_ANY), trigger)
+    fun bindViewModel() {
+        txtPrompt.textProperty().bindBidirectional(chatViewModel.prompt)
+        btnSend.disableProperty().bindBidirectional(chatViewModel.disablePrompting)
+        txtChat.textProperty().bindBidirectional(chatViewModel.chatHistory)
     }
 
     fun onBtnClearChatPressed() {
@@ -61,21 +64,19 @@ class GptController {
     }
 
     fun onSendPrompt() {
-        btnSend.isDisable = true
-        val chatContext = getChatLogsWith(txtPrompt.text).joinToString("\n")
+        chatViewModel.disableNewRequests()
 
-        CompletableFuture.supplyAsync({
+        val chatContext = getChatLogsWith(chatViewModel.prompt.value).joinToString("\n")
+
+        CompletableFuture.supplyAsync {
             val apiResponse = completionsApi(chatContext)
-            val output: String = buildOutputFrom(txtPrompt.text, apiResponse)
+            val output: String = buildOutputFrom(chatViewModel.prompt.value, apiResponse)
             txtChat.appendText(output)
             file.appendText(output)
 
-            storeInChatLogs(txtPrompt.text, apiResponse)
-            btnSend.isDisable = false
-            txtPrompt.clear()
-        }, {
-            Platform.runLater(it)
-        })
+            storeInChatLogs(chatViewModel.prompt.value, apiResponse)
+            chatViewModel.resetPrompt()
+        }
     }
 
     private fun buildOutputFrom(
@@ -90,5 +91,9 @@ class GptController {
 
 ${ROBOT}: $result
 ---""".trimIndent()
+    }
+
+    private fun Node.assignShortcuts(keyCode: KeyCode, trigger: Runnable) {
+        scene.accelerators[KeyCodeCombination(keyCode, KeyCombination.CONTROL_ANY)] = trigger
     }
 }
