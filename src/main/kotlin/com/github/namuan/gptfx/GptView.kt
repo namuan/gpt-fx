@@ -5,11 +5,11 @@ import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
 
-class GptScreen(private val title: String) {
+class GptView(private val title: String) {
     fun setup(stage: Stage) {
-        val fxmlLoader = FXMLLoader(HelloApplication::class.java.getResource("gpt-view.fxml"))
+        val fxmlLoader = FXMLLoader(MainApp::class.java.getResource("gpt-view.fxml"))
         val scene = Scene(fxmlLoader.load(), 800.0, 600.0)
-        HelloApplication::class.java.getResource("/styles.css")?.toExternalForm()?.let {
+        MainApp::class.java.getResource("/styles.css")?.toExternalForm()?.let {
             scene.stylesheets.add(it)
         }
         stage.title = title

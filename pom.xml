@@ -63,7 +63,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.github.namuan.gptfx/com.github.namuan.gptfx.MainApplicationKt
+                            <mainClass>com.github.namuan.gptfx/com.github.namuan.gptfx.MainAppKt
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

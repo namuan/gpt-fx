@@ -1,5 +1,6 @@
 package com.github.namuan.gptfx
 
+import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.Node
 import javafx.scene.control.Button
@@ -11,6 +12,7 @@ import javafx.scene.input.KeyCombination
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.CompletableFuture
 
 private const val HUMAN = "🗣"
 private const val ROBOT = "🤖"
@@ -61,14 +63,20 @@ class GptController {
     fun onSendPrompt() {
         btnSend.isDisable = true
         val chatContext = getChatLogsWith(txtPrompt.text).joinToString("\n")
-        val apiResponse = completionsApi(chatContext)
-        val output: String = buildOutputFrom(txtPrompt.text, apiResponse)
-        txtChat.appendText(output)
-        file.appendText(output)
 
-        storeInChatLogs(txtPrompt.text, apiResponse)
-        btnSend.isDisable = false
-        txtPrompt.clear()
+        CompletableFuture.supplyAsync({
+            Thread.sleep(5000)
+            val apiResponse = completionsApi(chatContext)
+            val output: String = buildOutputFrom(txtPrompt.text, apiResponse)
+            txtChat.appendText(output)
+            file.appendText(output)
+
+            storeInChatLogs(txtPrompt.text, apiResponse)
+            btnSend.isDisable = false
+            txtPrompt.clear()
+        }, {
+            Platform.runLater(it)
+        })
     }
 
     private fun buildOutputFrom(
