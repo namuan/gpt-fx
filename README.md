@@ -1,5 +1,10 @@
 # GptFx
 
+A simple application to chat with OpenAI's GPT-3 API.
+It resends the history of the conversation to the API to maintain the context.
+
+![Demo](docs/images/gptfx-demo.gif)
+
 #### Development
 
 You'll need Java17 and JavaFX to build and run this application.
