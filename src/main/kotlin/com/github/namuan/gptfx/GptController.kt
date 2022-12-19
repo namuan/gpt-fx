@@ -56,10 +56,10 @@ class GptController {
     }
 
     fun onSendPrompt() {
-        chatViewModel.disableNewRequests()
         val chatContext: String = chatViewModel.getChatContext()
 
         CompletableFuture.supplyAsync {
+            chatViewModel.disableNewRequests()
             val apiResponse = completionsApi(chatContext)
             chatViewModel.updateChatContext(apiResponse)
             chatViewModel.resetPrompt()

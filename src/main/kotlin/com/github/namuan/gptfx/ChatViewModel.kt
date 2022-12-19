@@ -28,10 +28,6 @@ class ChatViewModel {
         return safeChatHistory() + safePrompt()
     }
 
-    private fun safeChatHistory() = chatHistory.get().orEmpty()
-
-    private fun safePrompt() = prompt.get().orEmpty()
-
     fun updateChatContext(promptResponse: String) {
         chatHistory.set(safeChatHistory() + buildOutputFrom(safePrompt(), promptResponse))
     }
@@ -39,6 +35,10 @@ class ChatViewModel {
     fun clearChatHistory() {
         chatHistory.set("")
     }
+
+    private fun safeChatHistory() = chatHistory.get().orEmpty()
+
+    private fun safePrompt() = prompt.get().orEmpty()
 
     private fun buildOutputFrom(
         prompt: String,
