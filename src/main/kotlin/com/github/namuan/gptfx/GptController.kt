@@ -1,6 +1,7 @@
 package com.github.namuan.gptfx
 
 import javafx.fxml.FXML
+import javafx.scene.Node
 import javafx.scene.control.Button
 import javafx.scene.control.TextArea
 import javafx.scene.control.TextField
@@ -34,18 +35,22 @@ class GptController {
     }
 
     fun bindShortcuts() {
-        btnSend.scene.accelerators.put(KeyCodeCombination(KeyCode.S, KeyCombination.CONTROL_ANY)) {
+        btnSend.assignShortcuts(KeyCode.S) {
             btnSend.fire()
         }
-        btnClearChat.scene.accelerators.put(KeyCodeCombination(KeyCode.X, KeyCombination.CONTROL_ANY)) {
+        btnClearChat.assignShortcuts(KeyCode.X) {
             btnClearChat.fire()
         }
-        txtPrompt.scene.accelerators.put(KeyCodeCombination(KeyCode.I, KeyCombination.CONTROL_ANY)) {
+        txtPrompt.assignShortcuts(KeyCode.I) {
             txtPrompt.requestFocus()
         }
-        txtChat.scene.accelerators.put(KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_ANY)) {
+        txtChat.assignShortcuts(KeyCode.C) {
             txtChat.copy()
         }
+    }
+
+    private fun Node.assignShortcuts(keyCode: KeyCode, trigger: () -> Unit) {
+        scene.accelerators.put(KeyCodeCombination(keyCode, KeyCombination.CONTROL_ANY), trigger)
     }
 
     fun onBtnClearChatPressed() {
