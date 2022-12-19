@@ -29,6 +29,7 @@ class ChatViewModel {
 
     fun enableNewRequests() {
         disablePrompting.set(false)
+        resetPrompt()
     }
 
     fun getChatContext(): String {
