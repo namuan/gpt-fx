@@ -30,11 +30,13 @@ class GptController {
 
     fun onSendPrompt(event: ActionEvent) {
         btnSend.isDisable = true
-        val output: String = buildOutputFrom(txtPrompt.text, completionsApi(txtPrompt.text))
-
+        val chatContext = getListWith(txtPrompt.text).joinToString("\n")
+        val apiResponse = completionsApi(chatContext)
+        val output: String = buildOutputFrom(txtPrompt.text, apiResponse)
         txtChat.appendText(output)
         file.appendText(output)
 
+        saveToList(txtPrompt.text, apiResponse)
         btnSend.isDisable = false
         txtPrompt.clear()
     }
