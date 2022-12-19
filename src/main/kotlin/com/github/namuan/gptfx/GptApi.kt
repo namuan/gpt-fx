@@ -36,7 +36,6 @@ fun completionsApi(prompt: String): String {
         prompt = prompt,
         temperature = 0.1
     )
-    println("openaiRequest = $openaiRequest")
     val request = HttpRequest.newBuilder()
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer $openAiApiKey")
