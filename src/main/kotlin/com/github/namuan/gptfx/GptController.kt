@@ -26,6 +26,14 @@ class GptController {
 
     private val chatViewModel = ChatViewModel()
 
+    fun initialize() {
+        if (loadApiKey().isBlank()) {
+            chatViewModel.disableNewRequests()
+            txtPrompt.isDisable = true
+            txtPrompt.promptText = "Please set your API Key"
+        }
+    }
+
     fun bindShortcuts() {
         btnSend.assignShortcuts(KeyCode.S) {
             btnSend.fire()

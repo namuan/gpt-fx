@@ -39,7 +39,7 @@ fun completionsApi(prompt: String): String {
     logger.debug { "JSON Request: $requestBody" }
     val request = HttpRequest.newBuilder()
         .header("Content-Type", "application/json")
-        .header("Authorization", "Bearer ${apiKey()}")
+        .header("Authorization", "Bearer ${loadApiKey()}")
         .uri(URI.create("$OPENAI_BASE/v1/completions"))
         .POST(ofString(requestBody))
         .build()

@@ -17,13 +17,17 @@ fun setupConfig() {
     File(applicationDirectory).mkdirs()
 }
 
-fun apiKey(): String {
+fun loadApiKey(): String {
     val apiKeyFile = File(apiKeyFile)
     return if (apiKeyFile.exists()) {
         apiKeyFile.readText().trim()
     } else {
         ""
     }
+}
+
+fun saveApiKey(apiKey: String) {
+    File(apiKeyFile).writeText(apiKey)
 }
 
 fun savePosition(stage: Stage) {
