@@ -19,6 +19,8 @@
         <main.class>com.github.namuan.gptfx.MainAppKt</main.class>
         <destination.dir>${project.build.directory}/${project.name}</destination.dir>
         <icon/>
+        <kotlin-logging-jvm.version>3.0.4</kotlin-logging-jvm.version>
+        <logback-classic.version>1.4.5</logback-classic.version>
     </properties>
 
     <dependencies>
@@ -43,6 +45,16 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.microutils</groupId>
+            <artifactId>kotlin-logging-jvm</artifactId>
+            <version>${kotlin-logging-jvm.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback-classic.version}</version>
         </dependency>
     </dependencies>
 

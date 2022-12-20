@@ -3,6 +3,7 @@ package com.github.namuan.gptfx
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import javafx.concurrent.Task
+import mu.KotlinLogging
 import java.net.URI
 import java.net.http.HttpClient.newHttpClient
 import java.net.http.HttpRequest
@@ -28,6 +29,7 @@ val gson: Gson = Gson()
 
 val openAiApiKey: String? = System.getenv("OPENAI_API_KEY")
 
+private val logger = KotlinLogging.logger {}
 
 fun completionsApi(prompt: String): String {
     assert(openAiApiKey != null) { "OPENAI_API_KEY is not set" }
@@ -37,18 +39,21 @@ fun completionsApi(prompt: String): String {
         prompt = prompt,
         temperature = 0.1
     )
+    val requestBody = gson.toJson(openaiRequest)
+    logger.debug { "JSON Request: $requestBody" }
     val request = HttpRequest.newBuilder()
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer $openAiApiKey")
         .uri(URI.create("$OPENAI_BASE/v1/completions"))
-        .POST(ofString(gson.toJson(openaiRequest)))
+        .POST(ofString(requestBody))
         .build()
 
     val response = newHttpClient().send(request, ofString())
+    val responseBody = response.body()
+    logger.debug { "JSON Response: $responseBody" }
+    val completionResponse = gson.fromJson(responseBody, CompletionResponse::class.java)
 
-    val completionResponse = gson.fromJson(response.body(), CompletionResponse::class.java)
-
-    return completionResponse.choices.firstOrNull()?.text?.trim() ?: ""
+    return completionResponse.choices.firstOrNull()?.text?.trim() ?: responseBody
 }
 
 class ApiTask(val chatContext: String) : Task<String>() {

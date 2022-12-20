@@ -4,6 +4,8 @@ module com.github.namuan.gptfx {
     requires kotlin.stdlib;
     requires com.google.gson;
     requires java.net.http;
+    requires org.slf4j;
+    requires io.github.microutils.kotlinlogging;
 
 
     opens com.github.namuan.gptfx to javafx.fxml, com.google.gson;
