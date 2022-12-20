@@ -12,7 +12,7 @@ clean: ## Clean target directory
 run: ## Build and Run application
 	./mvnw javafx:run
 
-install: ## Package and install application
+install: clean ## Package and install application
 	./mvnw package -Ppackage
 
 icons: ## Generate icons
