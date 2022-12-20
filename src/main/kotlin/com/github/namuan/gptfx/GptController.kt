@@ -55,10 +55,13 @@ class GptController {
         task.setOnSucceeded {
             chatViewModel.updateChatContext(task.value)
             chatViewModel.enableNewRequests()
+            txtChat.selectPositionCaret(txtChat.text.length)
         }
         task.setOnFailed {
-            task.exception.printStackTrace()
+            val errorMessage = task.exception.stackTraceToString()
+            chatViewModel.updateChatContext(errorMessage)
             chatViewModel.enableNewRequests()
+            txtChat.selectPositionCaret(txtChat.text.length)
         }
 
         chatViewModel.disableNewRequests()
