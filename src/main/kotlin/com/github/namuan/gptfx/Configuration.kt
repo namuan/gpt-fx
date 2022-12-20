@@ -7,6 +7,7 @@ import java.io.File
 val applicationDirectory: String = System.getProperty("user.home") + "/.gptfx"
 
 private val propertiesFile = "$applicationDirectory/app_properties.json"
+private val apiKeyFile = "$applicationDirectory/api_key.json"
 
 data class WindowPosition(val x: Double, val y: Double, val width: Double, val height: Double)
 
@@ -14,6 +15,15 @@ data class ApplicationProperties(val windowPosition: WindowPosition)
 
 fun setupConfig() {
     File(applicationDirectory).mkdirs()
+}
+
+fun apiKey(): String {
+    val apiKeyFile = File(apiKeyFile)
+    return if (apiKeyFile.exists()) {
+        apiKeyFile.readText().trim()
+    } else {
+        ""
+    }
 }
 
 fun savePosition(stage: Stage) {

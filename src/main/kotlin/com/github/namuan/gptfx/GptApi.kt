@@ -27,13 +27,9 @@ data class CompletionResponse(val choices: List<Choice>)
 
 val gson: Gson = Gson()
 
-val openAiApiKey: String? = System.getenv("OPENAI_API_KEY")
-
 private val logger = KotlinLogging.logger {}
 
 fun completionsApi(prompt: String): String {
-    assert(openAiApiKey != null) { "OPENAI_API_KEY is not set" }
-
     val openaiRequest = CompletionRequest(
         model = "text-davinci-003",
         prompt = prompt,
@@ -43,7 +39,7 @@ fun completionsApi(prompt: String): String {
     logger.debug { "JSON Request: $requestBody" }
     val request = HttpRequest.newBuilder()
         .header("Content-Type", "application/json")
-        .header("Authorization", "Bearer $openAiApiKey")
+        .header("Authorization", "Bearer ${apiKey()}")
         .uri(URI.create("$OPENAI_BASE/v1/completions"))
         .POST(ofString(requestBody))
         .build()
