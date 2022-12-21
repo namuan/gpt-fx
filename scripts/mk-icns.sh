@@ -25,5 +25,5 @@ convert $(ls "${output_name}".iconset/icon_*.png) src/main/resources/icons/app.i
 
 rm -R "$output_name.iconset"
 mv "$output_name".icns src/main/resources/icons/
-
+$inkscape --export-filename "$PWD/src/main/resources/icons/${output_name}.png" -w 512 -h 512 "$svg_file"
 $inkscape --export-filename "$PWD/src/main/resources/${output_name}.png" -w 512 -h 512 "$svg_file"

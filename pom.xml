@@ -217,6 +217,28 @@
             </build>
         </profile>
         <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <icon>app.ico</icon>
+            </properties>
+        </profile>
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <icon>app.png</icon>
+            </properties>
+        </profile>
+        <profile>
             <id>mac</id>
             <activation>
                 <os>
