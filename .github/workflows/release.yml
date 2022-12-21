@@ -34,7 +34,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: GptFx-linux
-          path: target/GptFx.tar.gz
+          path: target/gpt-fx.tar.gz
 
   build-windows-package:
     runs-on: windows-latest
@@ -62,7 +62,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: GptFx-windows
-          path: target/GptFx.tar.gz
+          path: target/gpt-fx.tar.gz
 
   build-macos-package:
     runs-on: macos-latest
@@ -90,7 +90,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: GptFx-macos
-          path: target/GptFx.tar.gz
+          path: target/gpt-fx.tar.gz
 
   build-release:
     runs-on: ubuntu-latest
@@ -121,8 +121,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./GptFx.tar.gz
-          asset_name: GptFx-linux.tar.gz
+          asset_path: ./gpt-fx.tar.gz
+          asset_name: gpt-fx-linux.tar.gz
           asset_content_type: application/gzip
 
       - name: Download windows artifact
@@ -139,8 +139,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./GptFx.tar.gz
-          asset_name: GptFx-windows.tar.gz
+          asset_path: ./gpt-fx.tar.gz
+          asset_name: gpt-fx-windows.tar.gz
           asset_content_type: application/gzip
 
       - name: Download macos artifact
@@ -154,6 +154,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./GptFx.tar.gz
-          asset_name: GptFx-macos.tar.gz
+          asset_path: ./gpt-fx.tar.gz
+          asset_name: gpt-fx-macos.tar.gz
           asset_content_type: application/gzip
