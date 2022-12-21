@@ -10,10 +10,10 @@ It resends the history of the conversation to the API to maintain the context.
 You'll need Java17 and JavaFX to build and run this application.
 The easiest way is to use [SDKMAN](https://sdkman.io/).
 
-Once you have SDKMAN installed, you can install `17.0.5.fx-zulu` which includes the `JavaFX` library.
+Once you have SDKMAN installed, you can install `17.0.5-tem`.
 
 ```shell
-sdk install java 17.0.5.fx-zulu
+sdk install java 17.0.5-tem
 ```
 
 Once it is installed, just run the following command to build the application.
