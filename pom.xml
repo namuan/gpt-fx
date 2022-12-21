@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>jdeploy-javafx-starter</artifactId>
+        <groupId>ca.weblite</groupId>
+        <version>1.0.5</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.namuan</groupId>
@@ -11,14 +17,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.main.class>com.github.namuan.gptfx.MainAppKt</maven.compiler.main.class>
         <client.version>1.0.0</client.version>
         <junit.version>5.9.1</junit.version>
         <kotlin.version>1.7.21</kotlin.version>
         <gson.version>2.10</gson.version>
-        <fatJar.dir>${project.build.directory}/fatJar/</fatJar.dir>
         <main.class>com.github.namuan.gptfx.MainAppKt</main.class>
-        <destination.dir>${project.build.directory}/${project.name}</destination.dir>
-        <icon/>
         <kotlin-logging-jvm.version>3.0.4</kotlin-logging-jvm.version>
         <logback-classic.version>1.4.5</logback-classic.version>
     </properties>
@@ -71,53 +75,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.8</version>
-                <executions>
-                    <execution>
-                        <!-- Default configuration for running with: mvn clean javafx:run -->
-                        <id>default-cli</id>
-                        <configuration>
-                            <mainClass>com.github.namuan.gptfx/com.github.namuan.gptfx.MainAppKt
-                            </mainClass>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.2</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                        <configuration>
-                            <transformers>
-                                <transformer
-                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <manifestEntries>
-                                        <Specification-Title>${project.artifactId}</Specification-Title>
-                                        <Specification-Version>${project.version}</Specification-Version>
-                                        <Implementation-Title>${project.artifactId}</Implementation-Title>
-                                        <Implementation-Version>${project.version}</Implementation-Version>
-                                        <Implementation-Vendor-Id>${project.groupId}</Implementation-Vendor-Id>
-                                        <Main-Class>${main.class}</Main-Class>
-                                    </manifestEntries>
-                                </transformer>
-                            </transformers>
-                            <outputFile>${project.build.directory}/fatJar/${project.build.finalName}.jar</outputFile>
-                            <dependencyReducedPomLocation>
-                                ${project.build.directory}/dependency-reduced-pom.xml
-                            </dependencyReducedPomLocation>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
@@ -143,80 +100,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>package</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <version>3.0.0</version>
-                        <executions>
-                            <execution>
-                                <id>create-package</id>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <phase>package</phase>
-                                <configuration>
-                                    <executable>jpackage</executable>
-                                    <arguments>
-                                        <argument>--verbose</argument>
-                                        <argument>--input</argument>
-                                        <argument>${fatJar.dir}</argument>
-                                        <argument>--name</argument>
-                                        <argument>${project.name}</argument>
-                                        <argument>--main-class</argument>
-                                        <argument>${main.class}</argument>
-                                        <argument>--main-jar</argument>
-                                        <argument>${project.build.finalName}.jar</argument>
-                                        <argument>--type</argument>
-                                        <argument>app-image</argument>
-                                        <argument>--dest</argument>
-                                        <argument>${destination.dir}</argument>
-                                        <argument>--copyright</argument>
-                                        <argument>MIT</argument>
-                                        <argument>--vendor</argument>
-                                        <argument>DeskRiders</argument>
-                                        <argument>--icon</argument>
-                                        <argument>${project.basedir}/src/main/resources/icons/${icon}</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>exec</goal>
-                                </goals>
-                                <configuration>
-                                    <executable>tar</executable>
-                                    <arguments>
-                                        <argument>-czf</argument>
-                                        <argument>${project.build.directory}/${project.name}.tar.gz</argument>
-                                        <argument>-C</argument>
-                                        <argument>${destination.dir}</argument>
-                                        <argument>${destination.name}</argument>
-                                    </arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>mac</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                </os>
-            </activation>
-            <properties>
-                <icon>app.icns</icon>
-                <destination.name>${project.name}.app</destination.name>
-            </properties>
-        </profile>
-    </profiles>
 </project>
